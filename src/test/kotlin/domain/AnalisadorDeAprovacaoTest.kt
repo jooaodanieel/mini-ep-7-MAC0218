@@ -7,6 +7,7 @@ import domain.criterios.Rigoroso
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import kotlin.test.assertEquals
 import kotlin.test.assertIs
 
 @Suppress("unused")
@@ -41,5 +42,21 @@ internal class AnalisadorDeAprovacaoTest {
 
         // então
         assertIs<BoletimFechado>(resultado)
+    }
+
+    @Test
+    fun `fecha um boletim corretamente`() {
+        // dado
+        val boletim = Boletim(mediaEPs = 5.0, mediaMiniEPs = 9.0)
+        underTest.defineCriterio(Basico())
+
+        // quando
+        val boletimFechado = underTest.fechaBoletim(boletim)
+
+        // então
+        assertEquals(boletimFechado.mediaEPs, boletim.mediaEPs)
+        assertEquals(boletimFechado.mediaMiniEPs, boletim.mediaMiniEPs)
+        assertEquals(boletimFechado.mediaFinal, 7.0)
+        assertEquals(boletimFechado.foiAprovado, true)
     }
 }
