@@ -1,6 +1,6 @@
 package domain
 
-data class Boletim(
-    val mediaEPs: Double,
-    val mediaMiniEPs: Double
+open class Boletim(
+    open val mediaEPs: Double,
+    open val mediaMiniEPs: Double
 )
